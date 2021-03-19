@@ -1,5 +1,4 @@
 
-get_first_row([X|Y],X,Y).
 
 add_first(L,X,[X|L]).
 
@@ -27,26 +26,71 @@ lists([[Head|_]|Lists], [Head|L]):-
 lists([[_,Head|Tail]|Lists], L):-
   lists([[Head|Tail]|Lists], L).
 
-% temp(Matrix,Lists):-
-% 	get_first_row(Matrix,X,Y).
-% 	create_diag(A,B).
-
 
 combine([],[],[]).
-combine([Head|L],[Start|L1],[[Head,Start]|X]):-
+combine([Head|L],[Start|L1],[[Head|Start]|X]):-
 	combine(L,L1,X).
 
+combine2([],[],[]).
+combine2([Head|L],[Start|L1],[[Head,Start]|X]):-
+	combine2(L,L1,X).
 
-create_diag([Head|Tail],[[Start|End]],[[Start]|L]):-
+create_diag([Head|Tail],[Start|End],L):-
 	without_last([Head|Tail], X),
 	combine(X,End,Y),
 	get_last(Tail,Last),
 	append(Y,[[Last]],L).
 
-diags([],[]).
-diags(Matrix,X,Y):-
-	get_first_row(Matrix,X,Y).
-	%create_diag(X,Y,Diag).
+
+create_diag([Head|Tail],[List],L):-
+	without_last([Head|Tail], X),
+	combine2(X,List,Y),
+	get_last(Tail,Last),
+	append(Y,[[Last]],L).
+
+get_first_row([X|Y],X,Y).
+%get_first_row([[]|[]],[],[]).
 
 
+% diagonal([[X|_]],[],[[X]]).
+% diagonal([X|_],[],[[X]]).
+
+% diagonal(X,[[Y|End]],Newdiag):-
+%	create_diag(X,[End],Newdiag).
+
+diagonal([X|Tail],[],[[X]|[Tail]]).		% base case, where is one line in the matrix.
+
+diagonal(X,Y,[Start|L]):-
+	get_first_row(Y,X1,Y1),
+	diagonal(X1,Y1,[Start|End]),
+	
+	create_diag(X,End,L).
+
+
+diags(Matrix,diag):-
+	% get_first_row(Matrix,X,Y),
+	diagonal([],Matrix,Diag).
+
+
+% diags(Matrix,[[Start]|Diag]):-
+%	get_first_row(Matrix,X,[[Start|L]]),
+
+%	diags()
+
+%	create_diag(X,[L],Diag).
+
+
+diag1(Matrix, Diag) :-
+    diag1(Matrix, [], Diag).
+
+diag1([], _, []).
+diag1([Row|Rows], Fs, [D|Ds]) :-
+    front_same_length(Fs, D, Row),
+    diag1(Rows, [_|Fs], Ds).
+
+front_same_length([], D, [D|_]).
+front_same_length([_|Xs], D, [_|Rs]) :-
+    front_same_length(Xs, D, Rs).
+
+% find_all_diags([Head|Tail],[[Start|End]],L):-
 
