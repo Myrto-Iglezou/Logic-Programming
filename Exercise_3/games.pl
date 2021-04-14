@@ -3,15 +3,14 @@
 
 % Iglezou Myrto - 1115201700038
 
-play(Capacity, InitialMarks, Times, GiftMarks, FinalMarks):-
+play(Capacity, InitialMarks, Times, GiftMarks, FinalMarks):-		% calculate the marks after playing a game
 	AfterMarks is InitialMarks - Times,
 	NewMarks is AfterMarks + GiftMarks,
 	compareMarks(Capacity,NewMarks,FinalMarks).
 
-
-compareMarks(Capacity,NewMarks,Capacity):-
+compareMarks(Capacity,NewMarks,Capacity):-			% check that there are no more than the initial number of marks in the bucket
 	NewMarks >= Capacity,!.
-compareMarks(Capacity,NewMarks,NewMarks).
+compareMarks(_,NewMarks,NewMarks).
 
 
 between(LBound, RBound, LBound) :-
@@ -21,28 +20,29 @@ between(LBound, RBound, Result) :-
     NextLBound is LBound + 1,
     between(NextLBound, RBound, Result).
 
-firstGame(Game, T, K, Times, Pl):-
-	between(1,T,Times),
-	Pl is Game*Times.
-	
 
-restGames([], _, _, _, [], CurPl ,Pl):-
+solution([], _, _, _, [], CurPl ,Pl):-		% return the final pleasure
  	Pl is CurPl.
 
-restGames([Game|RestGames], T, K, CurrentMarks, [FTimes|RestTimes], CurPl, Pl):-
+solution([Game|RestGames], T, K, CurrentMarks, [FTimes|RestTimes],CurPl, Pl):-		% in case of positive pleasure, check all possible senarios of time playing
+	Game >= 0,
 	between(1,CurrentMarks,FTimes),
 	CurPles is Game*FTimes,
 	NewPl is CurPl + CurPles,
 	play(T, CurrentMarks, FTimes, K, FinalMarks),
-	restGames(RestGames, T, K, FinalMarks, RestTimes, NewPl, Pl).
+	solution(RestGames, T, K, FinalMarks, RestTimes, NewPl, Pl).
 
-solution([Game|RestGames], T, K, [FTimes|RestTimes], Pl):-
-	firstGame(Game, T, K, FTimes, FirstPl),
-	play(T, T, FTimes, K, FinalMarks),
-	restGames(RestGames, T, K, FinalMarks, RestTimes, FirstPl, Pl).
+solution([Game|RestGames], T, K, CurrentMarks, [FTimes|RestTimes],CurPl, Pl):-		% in case of negative pleasure, the game will be played only once
+	Game < 0,
+	FTimes = 1, 
+	CurPles is Game*FTimes,
+	NewPl is CurPl + CurPles,
+	play(T, CurrentMarks, FTimes, K, FinalMarks),
+	solution(RestGames, T, K, FinalMarks, RestTimes, NewPl, Pl).
+
 
 games(Ps,T,K,FinalGs,MaxP):-
-	findall(p(Gs,P),solution(Ps,T,K,Gs,P), L),  
+	findall(p(Gs,P),solution(Ps,T,K,T,Gs,0,P), L),  
 	findmax(L,MaxP),
 	member(p(FinalGs,MaxP), L).
 
