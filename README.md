@@ -1,6 +1,4 @@
-# Logic-Programming
-
-## Problems solved with prolog
+# Problems solved with prolog
 
 ### 1️⃣ diags.pl
 ### 2️⃣ hopfield.pl 
