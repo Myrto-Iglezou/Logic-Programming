@@ -112,7 +112,7 @@ dimY([],[]).
 dimY([c(_,_,X)|T],[X|Rest]):-
 	dimY(T,Rest).
 
-%%%%  Quontity  %%%%
+%%%%  Quantity  %%%%
 
 checkQuantity([],_,[]).
 checkQuantity([FirstClient|RestClients],Demands,[X|Tail]):-
