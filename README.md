@@ -14,7 +14,7 @@ __Example:__
 
 ### 2️⃣ hopfield.pl 
 
-<p> This task refers to [Hopfield network](https://en.wikipedia.org/wiki/Hopfield_network). The hopfield/2 predicate, takes a list of vectors to be stored in a Hopfield grid, where each vector is also a list of its elements. It returns the grid weight table to the second argument.</p> 
+<p> This task refers to <a href="https://en.wikipedia.org/wiki/Hopfield_network">Hopfield network</a>. The hopfield/2 predicate, takes a list of vectors to be stored in a Hopfield grid, where each vector is also a list of its elements. It returns the grid weight table to the second argument.</p> 
 
 __Example:__
 
@@ -31,8 +31,11 @@ __Example:__
 __Example:__
 
 > ?- games([4,1,2,3],5,2,Gs,P).
+> 
 > Gs = [5,1,1,4]
+>
 > P = 35 --> ;
+>
 > no
   
 ### 4️⃣ decode.pl
