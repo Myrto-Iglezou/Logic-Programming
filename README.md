@@ -65,7 +65,7 @@ __Example:__
 
 <p> An airline has planned to operate N flights, which can be referred to, by the codes 1, 2, 3,…, N. In addition, it has created M flight combinations(pairings) Pi (1<=i<=M). Each Pi includes some of the flights 1, 2, 3,…, N and also the Pi are not necessarily foreign to each other. These combinations are constructed in such a way that it is possible all the flights to take place with one of the available pilots of the company. The goal is to select some combinations that exactly cover the company's flights, in order to be assigned to specific pilots. Finally, if a combination of Pi flights has a cost (overnight expenses, off-site allowances, overtime pay, etc.) to the company Ci, the combinations to be selected must be the ones that cause the lowest total cost.</p> 
 
-<p>The data needed for this task, are in the file <i>flight_data.pl</i>. Run in Prolog get_flight_data(I,N,P,C), giving an input serial number (1, 2,…) to I and taking the number of flights to N, a list of flight combinations to P and the cost list of these combinations to C.  </p>
+<p>The data needed for this task, is in the file <i>flight_data.pl</i>. Run in Prolog get_flight_data(I,N,P,C), giving an input serial number (1, 2,…) to I and taking the number of flights to N, a list of flight combinations to P and the cost list of these combinations to C.  </p>
 
 <p>Define a flight/3 predicate, which when called as flights(I, Pairings, Cost), should, for the data set with serial number I, find the optimal solution to the problem. </p>
 
@@ -81,7 +81,7 @@ __Example:__
 
 <p> In this problem, there is a company, which is going to distribute certain quantities of the product it produces to specific customers. All the product is initially in the company's warehouse. A fleet of vehicles, possibly of different capacities, will be used to deliver orders to customers.</p>
 
-<p> A snapshot of the problem for 8 vehicles and 20 customers is given below. The data of the problem are in the file hcvrp_data.pl.</p>
+<p> A snapshot of the problem for 8 vehicles and 20 customers is given below. The data of the problem is in the file hcvrp_data.pl.</p>
 
 > vehicles ([35, 40, 55, 15, 45, 25, 85, 55]).
 > 
